@@ -3,7 +3,7 @@
 Was Ömer tun muss. Claude ergänzt diese Liste während des Baus.
 
 ## Von Anfang an bekannt
-- [ ] Kostenloses npm-Konto anlegen, Organisation `tirlogy` erstellen (npmjs.com → Add Organization → Free), dann veröffentlichen:
+- [x] (erledigt 21.11.2026, @tirlogy/einvoice@1.0.0 ist auf npm) Kostenloses npm-Konto anlegen, Organisation `tirlogy` erstellen (npmjs.com → Add Organization → Free), dann veröffentlichen:
   ```bash
   cd packages/einvoice
   npm login

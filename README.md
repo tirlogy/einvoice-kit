@@ -4,7 +4,7 @@
 [![Coverage](https://img.shields.io/badge/coverage-98%25-brightgreen)](#quality)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 [![Version](https://img.shields.io/badge/version-1.0.0-informational)](CHANGELOG.md)
-[![npm](https://img.shields.io/badge/npm-%40tirlogy%2Feinvoice-red)](packages/einvoice/README.md)
+[![npm](https://img.shields.io/npm/v/@tirlogy/einvoice)](https://www.npmjs.com/package/@tirlogy/einvoice)
 
 View, validate, create and convert **ZUGFeRD** and **XRechnung** e-invoices in the browser. Available as an npm package and a web app; invoices never leave the device.
 

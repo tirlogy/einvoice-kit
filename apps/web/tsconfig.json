@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "types": ["vite/client", "node"],
+    "noEmit": true,
+    "paths": { "@core/*": ["../../packages/einvoice/src/*"] }
+  },
+  "include": ["src", "e2e", "*.ts", "../../packages/einvoice/src"]
+}

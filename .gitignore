@@ -18,3 +18,4 @@ ERKLAERT.md
 .claude-flow/
 *.tgz
 apps/web/public/vendor/
+.claude/settings.local.json

@@ -2,6 +2,8 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { LANGS, useI18n, type Lang } from './i18n';
 import type { StringKey } from './i18n/strings';
+import { Logo } from './components/Logo';
+import { NavIcon } from './components/NavIcon';
 import { CreatePage } from './pages/CreatePage';
 import { StartPage } from './pages/StartPage';
 import { ViewPage } from './pages/ViewPage';
@@ -12,12 +14,12 @@ const DataPage = lazy(() => import('./pages/DataPage').then((m) => ({ default: m
 const PrivacyPage = lazy(() => import('./pages/PrivacyPage').then((m) => ({ default: m.PrivacyPage })));
 
 type Route = 'start' | 'view' | 'create' | 'convert' | 'data' | 'privacy';
-const ROUTES: { id: Route; label: StringKey }[] = [
-  { id: 'start', label: 'navStart' },
-  { id: 'view', label: 'navView' },
-  { id: 'create', label: 'navCreate' },
-  { id: 'convert', label: 'navConvert' },
-  { id: 'data', label: 'navData' },
+const ROUTES: { id: Exclude<Route, 'privacy'>; label: StringKey; short: StringKey }[] = [
+  { id: 'start', label: 'navStart', short: 'navStartShort' },
+  { id: 'view', label: 'navView', short: 'navViewShort' },
+  { id: 'create', label: 'navCreate', short: 'navCreateShort' },
+  { id: 'convert', label: 'navConvert', short: 'navConvertShort' },
+  { id: 'data', label: 'navData', short: 'navDataShort' },
 ];
 
 const routeFromHash = (): Route => {
@@ -26,6 +28,8 @@ const routeFromHash = (): Route => {
 };
 
 type Theme = 'system' | 'light' | 'dark';
+const NEXT_THEME: Record<Theme, Theme> = { system: 'light', light: 'dark', dark: 'system' };
+const THEME_LABEL: Record<Theme, StringKey> = { system: 'themeSystem', light: 'themeLight', dark: 'themeDark' };
 const loadTheme = (): Theme => {
   try {
     const t = localStorage.getItem('theme');
@@ -66,22 +70,18 @@ export function App() {
         {t('skip')}
       </a>
       <header className="site-header no-print">
-        <div className="brand">
-          <svg aria-hidden="true" width="28" height="28" viewBox="0 0 32 32">
-            <rect width="32" height="32" rx="7" fill="var(--primary)" />
-            <path d="M9 8h10l4 4v12H9z" fill="none" stroke="var(--on-primary)" strokeWidth="2" strokeLinejoin="round" />
-            <path d="M12 16h8M12 20h5" stroke="var(--on-primary)" strokeWidth="2" strokeLinecap="round" />
-          </svg>
-          <a href="#/start" className="brand-name">
-            {t('appName')}
-          </a>
-        </div>
-        <nav aria-label="Navigation">
+        <a href="#/start" className="brand">
+          <Logo size={30} />
+          <span className="brand-name">{t('appName')}</span>
+        </a>
+        <nav aria-label="Navigation" className="main-nav">
           <ul>
             {ROUTES.map((r) => (
               <li key={r.id}>
                 <a href={`#/${r.id}`} aria-current={route === r.id ? 'page' : undefined}>
-                  {t(r.label)}
+                  <NavIcon name={r.id} />
+                  <span className="nav-long">{t(r.label)}</span>
+                  <span className="nav-short">{t(r.short)}</span>
                 </a>
               </li>
             ))}
@@ -98,14 +98,15 @@ export function App() {
               </option>
             ))}
           </select>
-          <label className="visually-hidden" htmlFor="theme-select">
-            {t('theme')}
-          </label>
-          <select id="theme-select" value={theme} onChange={(e) => setTheme(e.target.value as Theme)}>
-            <option value="system">{t('themeSystem')}</option>
-            <option value="light">{t('themeLight')}</option>
-            <option value="dark">{t('themeDark')}</option>
-          </select>
+          <button
+            type="button"
+            className="icon-button"
+            onClick={() => setTheme(NEXT_THEME[theme])}
+            aria-label={`${t('theme')}: ${t(THEME_LABEL[theme])}`}
+            title={`${t('theme')}: ${t(THEME_LABEL[theme])}`}
+          >
+            <NavIcon name={theme} />
+          </button>
         </div>
       </header>
       <main id="main" tabIndex={-1}>

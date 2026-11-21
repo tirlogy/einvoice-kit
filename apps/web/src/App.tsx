@@ -3,6 +3,7 @@ import { lazy, Suspense, useEffect, useState } from 'react';
 import { LANGS, useI18n, type Lang } from './i18n';
 import type { StringKey } from './i18n/strings';
 import { CreatePage } from './pages/CreatePage';
+import { StartPage } from './pages/StartPage';
 import { ViewPage } from './pages/ViewPage';
 
 // small secondary pages are split off; viewer and editor are the entry points and load eagerly
@@ -10,8 +11,9 @@ const ConvertPage = lazy(() => import('./pages/ConvertPage').then((m) => ({ defa
 const DataPage = lazy(() => import('./pages/DataPage').then((m) => ({ default: m.DataPage })));
 const PrivacyPage = lazy(() => import('./pages/PrivacyPage').then((m) => ({ default: m.PrivacyPage })));
 
-type Route = 'view' | 'create' | 'convert' | 'data' | 'privacy';
+type Route = 'start' | 'view' | 'create' | 'convert' | 'data' | 'privacy';
 const ROUTES: { id: Route; label: StringKey }[] = [
+  { id: 'start', label: 'navStart' },
   { id: 'view', label: 'navView' },
   { id: 'create', label: 'navCreate' },
   { id: 'convert', label: 'navConvert' },
@@ -20,7 +22,7 @@ const ROUTES: { id: Route; label: StringKey }[] = [
 
 const routeFromHash = (): Route => {
   const h = location.hash.replace(/^#\/?/, '');
-  return (['view', 'create', 'convert', 'data', 'privacy'] as Route[]).includes(h as Route) ? (h as Route) : 'view';
+  return (['start', 'view', 'create', 'convert', 'data', 'privacy'] as Route[]).includes(h as Route) ? (h as Route) : 'start';
 };
 
 type Theme = 'system' | 'light' | 'dark';
@@ -70,7 +72,7 @@ export function App() {
             <path d="M9 8h10l4 4v12H9z" fill="none" stroke="var(--on-primary)" strokeWidth="2" strokeLinejoin="round" />
             <path d="M12 16h8M12 20h5" stroke="var(--on-primary)" strokeWidth="2" strokeLinecap="round" />
           </svg>
-          <a href="#/view" className="brand-name">
+          <a href="#/start" className="brand-name">
             {t('appName')}
           </a>
         </div>
@@ -107,7 +109,7 @@ export function App() {
         </div>
       </header>
       <main id="main" tabIndex={-1}>
-        <p className="local-note no-print">{t('localOnly')}</p>
+        {route !== 'start' && <p className="local-note no-print">{t('localOnly')}</p>}
         <Suspense
           fallback={
             <p className="busy" role="status">
@@ -115,6 +117,7 @@ export function App() {
             </p>
           }
         >
+          {route === 'start' && <StartPage />}
           {route === 'view' && <ViewPage />}
           {route === 'create' && <CreatePage />}
           {route === 'convert' && <ConvertPage />}

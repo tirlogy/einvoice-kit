@@ -33,7 +33,7 @@ test('create an XRechnung UBL, re-open it and validate it against XRechnung', as
 });
 
 test('a faulty invoice shows explained errors with rule IDs', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/#/view');
   await page.getByRole('button', { name: 'Fehlerhafte Rechnung' }).click();
   await expect(page.getByTestId('validation-status')).toHaveText(/Nicht gültig/);
   await expect(page.locator('.rule-id', { hasText: 'BR-CO-15' })).toBeVisible();
@@ -67,4 +67,12 @@ test('master data: save, export, delete all', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'Absender (0)' })).toBeVisible();
   await page.locator('#import-json').setInputFiles(await json.path());
   await expect(page.getByText(/Import abgeschlossen: 1 Einträge/)).toBeVisible();
+});
+
+test('start page explains the mandate and links to the tools', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('E-Rechnungen lesen');
+  await expect(page.getByRole('heading', { name: 'Die Fristen' })).toBeVisible();
+  await page.getByRole('link', { name: 'Rechnung prüfen' }).click();
+  await expect(page.getByRole('button', { name: 'Fehlerhafte Rechnung' })).toBeVisible();
 });

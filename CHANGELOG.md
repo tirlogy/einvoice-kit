@@ -4,6 +4,12 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+- Web: overview page as the new start page. Explains the German e-invoicing mandate (deadlines 2025, 2027, 2028, what counts as an e-invoice, exceptions) with sources from the Federal Ministry of Finance, plus a four-step guide to the tools. The next deadline is highlighted by date.
+
+### Changed
+- Web: own colour scheme (petrol ink with a stamp accent) for app, icon and manifest.
+
 ## [1.0.0] - 2026-11-21
 
 ### Added

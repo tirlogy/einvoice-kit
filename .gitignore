@@ -19,3 +19,5 @@ ERKLAERT.md
 *.tgz
 apps/web/public/vendor/
 .claude/settings.local.json
+packages/einvoice/LICENSE
+packages/einvoice/THIRD_PARTY.md

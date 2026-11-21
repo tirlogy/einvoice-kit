@@ -9,6 +9,8 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ### Changed
 - Web: own colour scheme (petrol ink with a stamp accent) for app, icon and manifest.
+- Web: new logo (invoice sheet with validation stamp) for app header, favicon and app icons.
+- Web: redesigned navigation. Sticky header with icons on wide screens, bottom tab bar with short labels on phones and tablets, theme switch as a single icon button.
 
 ## [1.0.0] - 2026-11-21
 

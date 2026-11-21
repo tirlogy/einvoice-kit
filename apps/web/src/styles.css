@@ -146,59 +146,174 @@ main:focus {
   top: 0.5rem;
 }
 
-/* header */
+/* header: sticky bar; below 1120px the navigation becomes a bottom tab bar */
 .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: 0.5rem 1.25rem;
-  padding: 0.75rem 1rem;
-  background: var(--surface);
+  gap: 1rem;
+  padding: 0.5rem max(1rem, env(safe-area-inset-right)) 0.5rem max(1rem, env(safe-area-inset-left));
+  min-height: 60px;
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  backdrop-filter: saturate(1.4) blur(10px);
   border-bottom: 1px solid var(--border);
 }
 .brand {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-}
-.brand-name {
-  font-weight: 700;
+  gap: 0.6rem;
   color: var(--text);
   text-decoration: none;
+  min-height: 44px;
+  flex: none;
 }
-.site-header nav {
+.brand:hover {
+  color: var(--text);
+}
+.brand svg {
+  border-radius: 8px;
+  flex: none;
+}
+.brand-name {
+  font-weight: 750;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.main-nav {
   flex: 1 1 auto;
   min-width: 0;
 }
-.site-header nav ul {
+.main-nav ul {
   display: flex;
   gap: 0.25rem;
   list-style: none;
   margin: 0;
   padding: 0;
-  overflow-x: auto;
 }
-.site-header nav a {
-  display: block;
-  padding: 0.5rem 0.75rem;
-  border-radius: 8px;
-  text-decoration: none;
-  color: var(--text);
-  white-space: nowrap;
+.main-nav a {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.8rem;
   min-height: 44px;
-  line-height: 1.75;
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--muted);
+  font-weight: 550;
+  white-space: nowrap;
 }
-.site-header nav a[aria-current='page'] {
+.main-nav a:hover {
+  color: var(--text);
   background: var(--surface-2);
+}
+.main-nav a[aria-current='page'] {
   color: var(--primary);
-  font-weight: 600;
+  background: var(--info-bg);
+}
+.main-nav svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+.nav-short {
+  display: none;
 }
 .prefs {
   display: flex;
-  gap: 0.5rem;
+  align-items: center;
+  gap: 0.4rem;
+  margin-left: auto;
+  flex: none;
+}
+.prefs select {
+  width: auto;
+  min-height: 40px;
+  padding: 0.3rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+}
+.icon-button {
+  width: 44px;
+  height: 44px;
+  min-height: 44px;
+  padding: 0;
+  border-radius: 50%;
+  color: var(--muted);
+}
+.icon-button:hover {
+  color: var(--text);
+  background: var(--surface-2);
+}
+
+@media (max-width: 1119px) {
+  body {
+    padding-bottom: calc(64px + env(safe-area-inset-bottom));
+  }
+  /* a backdrop-filter would become the containing block of the fixed tab bar */
+  .site-header {
+    backdrop-filter: none;
+    background: var(--surface);
+  }
+  .main-nav {
+    position: fixed;
+    z-index: 20;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0 env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    background: color-mix(in srgb, var(--surface) 94%, transparent);
+    backdrop-filter: saturate(1.4) blur(10px);
+    border-top: 1px solid var(--border);
+  }
+  .main-nav ul {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0;
+  }
+  .main-nav a {
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.15rem;
+    min-height: 64px;
+    padding: 0.4rem 0.15rem;
+    border-radius: 0;
+    font-size: 0.72rem;
+    font-weight: 600;
+  }
+  .main-nav a:hover,
+  .main-nav a[aria-current='page'] {
+    background: none;
+  }
+  .main-nav svg {
+    width: 44px;
+    height: 28px;
+    padding: 3px 11px;
+    border-radius: 999px;
+  }
+  .main-nav a[aria-current='page'] svg {
+    background: var(--info-bg);
+  }
+  .nav-long {
+    display: none;
+  }
+  .nav-short {
+    display: block;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+@media (max-width: 360px) {
+  .brand-name {
+    font-size: 0.95rem;
+  }
 }
 
 main {
+  scroll-margin-top: 64px;
   flex: 1 0 auto;
   /* keeps the footer below the fold while pages load (no layout shift) */
   min-height: 100vh;

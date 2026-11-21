@@ -1,0 +1,20 @@
+node_modules/
+dist/
+coverage/
+.cache/
+packages/einvoice/rules/
+playwright-report/
+test-results/
+.lighthouseci/
+*.tsbuildinfo
+.DS_Store
+# private, never commit
+ERKLAERT.md
+.env
+.env.*
+!.env.example
+.dev.vars
+.wrangler/
+.claude-flow/
+*.tgz
+apps/web/public/vendor/

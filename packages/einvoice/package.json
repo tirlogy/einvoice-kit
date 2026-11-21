@@ -1,0 +1,84 @@
+{
+  "name": "@tirlogy/einvoice",
+  "version": "1.0.0",
+  "description": "Parse, validate, create and convert ZUGFeRD / Factur-X and XRechnung (CII, UBL) e-invoices. Runs in the browser and in Node.",
+  "license": "MIT",
+  "author": "Ömer Tiryaki (https://tiryaki.eu)",
+  "homepage": "https://github.com/tirlogy/einvoice-kit/tree/main/packages/einvoice#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tirlogy/einvoice-kit.git",
+    "directory": "packages/einvoice"
+  },
+  "bugs": "https://github.com/tirlogy/einvoice-kit/issues",
+  "keywords": [
+    "e-invoice",
+    "e-rechnung",
+    "zugferd",
+    "factur-x",
+    "xrechnung",
+    "en16931",
+    "cii",
+    "ubl",
+    "pdf-a-3",
+    "schematron"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./node": {
+      "types": "./dist/node.d.ts",
+      "default": "./dist/node.js"
+    },
+    "./assets/*": "./assets/*",
+    "./rules/*": "./rules/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "assets",
+    "rules",
+    "README.md",
+    "LICENSE",
+    "THIRD_PARTY.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "coverage": "vitest run --coverage",
+    "prepack": "node ../../tools/rules/build.mjs && tsup && cp ../../LICENSE ../../THIRD_PARTY.md ."
+  },
+  "dependencies": {
+    "@pdf-lib/fontkit": "^1.1.1",
+    "@xmldom/xmldom": "^0.9.12",
+    "big.js": "^7.0.1",
+    "pdf-lib": "^1.17.1"
+  },
+  "peerDependencies": {
+    "saxon-js": "^2.7.0"
+  },
+  "peerDependenciesMeta": {
+    "saxon-js": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/big.js": "^7.0.0",
+    "@types/node": "^24.0.0",
+    "@vitest/coverage-v8": "^5.1.1",
+    "saxon-js": "2.7.0",
+    "tsup": "^9.0.0",
+    "typescript": "~6.0.3",
+    "vitest": "^5.1.1"
+  }
+}

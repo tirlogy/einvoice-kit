@@ -1,0 +1,47 @@
+{
+  "slug": "einvoice-kit",
+  "titel": {
+    "de": "E-Rechnung Kit",
+    "en": "E-Invoice Kit",
+    "tr": "E-Fatura Kiti"
+  },
+  "kurz": {
+    "de": "ZUGFeRD- und XRechnung-Dateien im Browser anzeigen, prüfen, erstellen und konvertieren. Als npm-Paket und Web-App, ohne dass eine Rechnung das Gerät verlässt.",
+    "en": "View, validate, create and convert ZUGFeRD and XRechnung e-invoices in the browser. Available as an npm package and a web app, invoices never leave the device.",
+    "tr": "ZUGFeRD ve XRechnung e-faturalarını tarayıcıda görüntüleyin, doğrulayın, oluşturun ve dönüştürün. npm paketi ve web uygulaması olarak; faturalar cihazdan hiç çıkmaz."
+  },
+  "status": "geplant",
+  "flaggschiff": true,
+  "profile": [
+    "software-web"
+  ],
+  "stack": [
+    "TypeScript",
+    "React",
+    "Vite",
+    "pdf-lib",
+    "SaxonJS",
+    "Schematron",
+    "Cloudflare Pages",
+    "Vitest",
+    "Playwright"
+  ],
+  "repo": "https://github.com/tirlogy/einvoice-kit",
+  "lizenz": "MIT",
+  "zeitraum": {
+    "von": "2026"
+  },
+  "skills": [
+    "TypeScript",
+    "React",
+    "PDF-Automatisierung"
+  ],
+  "kennzahlen": [],
+  "screenshots": [],
+  "demo": "https://erechnung.tiryaki.eu",
+  "paket": {
+    "registry": "npm",
+    "name": "@tirlogy/einvoice"
+  },
+  "fallstudie": "docs/fallstudie.de.mdx"
+}

@@ -1,0 +1,64 @@
+name: CI
+
+on:
+  push:
+    branches: [build, main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Lint, typecheck, test, conformance
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: 21
+      - run: pnpm install --frozen-lockfile
+      - name: Cache official rule sets and fixtures
+        uses: actions/cache@v6
+        with:
+          path: |
+            .cache/downloads
+            packages/einvoice/rules
+          key: rules-${{ hashFiles('tools/rules/versions.json', 'tools/rules/build.mjs') }}
+      - name: Fetch and compile rules (EN 16931, XRechnung), fixtures, KoSIT validator
+        run: node tools/rules/build.mjs --kosit
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - name: Unit tests with coverage (threshold 80 %)
+        run: pnpm coverage
+      - name: KoSIT validator accepts all generated XRechnung files
+        run: node tools/ci/kosit.mjs
+      - name: veraPDF confirms PDF/A-3b for all generated ZUGFeRD files
+        run: tools/ci/verapdf.sh
+      - name: Coverage summary
+        if: always()
+        run: |
+          node -e "const s=require('./packages/einvoice/coverage/coverage-summary.json').total;console.log('| Metric | % |\n|---|---|\n'+Object.entries(s).map(([k,v])=>'| '+k+' | '+v.pct+' |').join('\n'))" >> "$GITHUB_STEP_SUMMARY"
+      - run: pnpm build
+      - name: npm pack (package contents)
+        working-directory: packages/einvoice
+        run: npm pack --dry-run
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: generated-invoices
+          path: |
+            .cache/generated
+            .cache/kosit-reports
+          retention-days: 7

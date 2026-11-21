@@ -1,0 +1,6 @@
+pnpm-lock.yaml
+packages/einvoice/rules
+.cache
+dist
+coverage
+*.md

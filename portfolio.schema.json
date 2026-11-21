@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tiryaki.eu/schemas/portfolio.schema.json",
+  "title": "Portfolio-Eintrag für tiryaki.eu",
+  "type": "object",
+  "required": ["slug", "titel", "kurz", "status", "flaggschiff", "profile", "stack", "repo", "lizenz", "zeitraum"],
+  "properties": {
+    "slug": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "titel": { "$ref": "#/$defs/L" },
+    "kurz": { "$ref": "#/$defs/L", "description": "1 bis 2 Sätze, sachlich" },
+    "status": { "enum": ["geplant", "in-arbeit", "live", "archiviert"] },
+    "flaggschiff": { "type": "boolean" },
+    "profile": { "type": "array", "items": { "enum": ["it-prozesse", "software-web"] }, "minItems": 1 },
+    "stack": { "type": "array", "items": { "type": "string" } },
+    "repo": { "type": "string", "format": "uri" },
+    "demo": { "type": "string", "format": "uri" },
+    "paket": { "type": "object", "properties": { "registry": { "enum": ["npm", "nuget", "wordpress.org", "mcp-registry"] }, "name": { "type": "string" }, "url": { "type": "string", "format": "uri" } } },
+    "lizenz": { "type": "string", "description": "SPDX-ID, z. B. MIT" },
+    "zeitraum": { "type": "object", "required": ["von"], "properties": { "von": { "type": "string" }, "bis": { "type": "string" } } },
+    "kennzahlen": { "type": "array", "items": { "type": "object", "required": ["label", "wert"], "properties": { "label": { "$ref": "#/$defs/L" }, "wert": { "type": "string" } } } },
+    "screenshots": { "type": "array", "items": { "type": "object", "required": ["pfad", "alt"], "properties": { "pfad": { "type": "string" }, "alt": { "$ref": "#/$defs/L" } } } },
+    "fallstudie": { "type": "string", "description": "Pfad zur MDX-Fallstudie im Repo, nur bei Flaggschiffen" },
+    "skills": { "type": "array", "items": { "type": "string" }, "description": "Skill-Namen exakt wie in tiryaki.eu data/skills.ts, für die Belege-Verlinkung" }
+  },
+  "$defs": {
+    "L": { "type": "object", "required": ["de", "en", "tr"], "properties": { "de": { "type": "string" }, "en": { "type": "string" }, "tr": { "type": "string" } } }
+  }
+}

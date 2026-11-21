@@ -10,38 +10,97 @@
     "en": "View, validate, create and convert ZUGFeRD and XRechnung e-invoices in the browser. Available as an npm package and a web app, invoices never leave the device.",
     "tr": "ZUGFeRD ve XRechnung e-faturalarını tarayıcıda görüntüleyin, doğrulayın, oluşturun ve dönüştürün. npm paketi ve web uygulaması olarak; faturalar cihazdan hiç çıkmaz."
   },
-  "status": "geplant",
+  "status": "in-arbeit",
   "flaggschiff": true,
-  "profile": [
-    "software-web"
-  ],
+  "profile": ["software-web"],
   "stack": [
     "TypeScript",
     "React",
+    "Preact",
     "Vite",
     "pdf-lib",
     "SaxonJS",
     "Schematron",
+    "EN 16931",
+    "PDF/A-3",
+    "IndexedDB",
     "Cloudflare Pages",
     "Vitest",
-    "Playwright"
+    "Playwright",
+    "GitHub Actions"
   ],
   "repo": "https://github.com/tirlogy/einvoice-kit",
-  "lizenz": "MIT",
-  "zeitraum": {
-    "von": "2026"
-  },
-  "skills": [
-    "TypeScript",
-    "React",
-    "PDF-Automatisierung"
-  ],
-  "kennzahlen": [],
-  "screenshots": [],
   "demo": "https://erechnung.tiryaki.eu",
   "paket": {
     "registry": "npm",
-    "name": "@tirlogy/einvoice"
+    "name": "@tirlogy/einvoice",
+    "url": "https://www.npmjs.com/package/@tirlogy/einvoice"
   },
+  "lizenz": "MIT",
+  "zeitraum": {
+    "von": "2026-11",
+    "bis": "2026-11"
+  },
+  "skills": ["TypeScript", "React", "PDF-Automatisierung"],
+  "kennzahlen": [
+    {
+      "label": { "de": "Offizielle Testdateien gelesen", "en": "Official test files read", "tr": "Okunan resmi test dosyası" },
+      "wert": "135"
+    },
+    {
+      "label": { "de": "Unit-Tests (Abdeckung)", "en": "Unit tests (coverage)", "tr": "Birim testleri (kapsam)" },
+      "wert": "353 (98,6 %)"
+    },
+    {
+      "label": { "de": "Lighthouse mobil Performance / Barrierefreiheit", "en": "Lighthouse mobile performance / accessibility", "tr": "Lighthouse mobil performans / erişilebilirlik" },
+      "wert": "98 / 100"
+    },
+    {
+      "label": { "de": "JavaScript beim ersten Laden (gzip)", "en": "JavaScript on first load (gzip)", "tr": "İlk yüklemede JavaScript (gzip)" },
+      "wert": "47 KB"
+    },
+    {
+      "label": { "de": "Sonderfälle, geprüft mit KoSIT-Validator und veraPDF", "en": "Special cases checked with KoSIT validator and veraPDF", "tr": "KoSIT doğrulayıcı ve veraPDF ile kontrol edilen özel durumlar" },
+      "wert": "10"
+    },
+    {
+      "label": { "de": "Laufende Kosten", "en": "Running costs", "tr": "İşletme maliyeti" },
+      "wert": "0 €"
+    }
+  ],
+  "screenshots": [
+    {
+      "pfad": "docs/screenshots/view-validate.png",
+      "alt": {
+        "de": "Rechnungsansicht mit Prüfbericht: Fehler mit Regel-ID und verständlicher Erklärung",
+        "en": "Invoice view with validation report: errors with rule ID and plain language explanation",
+        "tr": "Doğrulama raporlu fatura görünümü: kural kimliği ve anlaşılır açıklamalı hatalar"
+      }
+    },
+    {
+      "pfad": "docs/screenshots/create.png",
+      "alt": {
+        "de": "Rechnung erstellen mit Live-Vorschau",
+        "en": "Creating an invoice with live preview",
+        "tr": "Canlı önizlemeli fatura oluşturma"
+      }
+    },
+    {
+      "pfad": "docs/screenshots/view-valid-dark.png",
+      "alt": {
+        "de": "Gültige XRechnung im Dunkelmodus",
+        "en": "Valid XRechnung in dark mode",
+        "tr": "Koyu modda geçerli XRechnung"
+      }
+    },
+    {
+      "pfad": "docs/screenshots/mobile.png",
+      "alt": {
+        "de": "Mobile Ansicht",
+        "en": "Mobile view",
+        "tr": "Mobil görünüm"
+      }
+    }
+  ],
   "fallstudie": "docs/fallstudie.de.mdx"
 }

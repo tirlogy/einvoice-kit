@@ -1,12 +1,14 @@
 // SPDX-License-Identifier: MIT
 import { amount, dec, plain, sum } from './decimal';
-import type {
-  AllowanceCharge,
-  Decimal,
-  Invoice,
-  Line,
-  VatBreakdown,
-  VatCategory,
+import {
+  DEFAULT_BUSINESS_PROCESS,
+  profileOf,
+  type AllowanceCharge,
+  type Decimal,
+  type Invoice,
+  type Line,
+  type VatBreakdown,
+  type VatCategory,
 } from './model';
 
 /** Default VAT exemption reasons (BT-120 / BT-121) for German use cases. */
@@ -126,6 +128,8 @@ export function finalize(draft: InvoiceDraft): Invoice {
   void _e;
   return {
     ...rest,
+    // XRechnung requires BT-23 (PEPPOL-EN16931-R001)
+    ...(!rest.businessProcess && profileOf(rest.specification) === 'XRECHNUNG' ? { businessProcess: DEFAULT_BUSINESS_PROCESS } : {}),
     lines,
     allowances,
     charges,

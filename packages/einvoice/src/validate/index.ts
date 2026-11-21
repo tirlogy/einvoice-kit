@@ -3,7 +3,7 @@ import { EInvoiceError } from '../errors';
 import { isGermanEInvoiceProfile, profileOf, type Profile, type Syntax } from '../model';
 import { parseInvoice, parseXmlInvoice } from '../parse';
 import { attr, kids, parseXml, text } from '../xml';
-import { plausibility } from './plausibility';
+import { isValidIban, plausibility } from './plausibility';
 
 /** The subset of the SaxonJS API used here (Node: `saxon-js`, browser: `SaxonJS2.rt.js`). */
 export interface SaxonLike {
@@ -105,6 +105,12 @@ export async function validateXml(xml: string, opts: ValidateOptions): Promise<V
     const useXr = opts.xrechnung === true || ((opts.xrechnung ?? 'auto') === 'auto' && profile === 'XRECHNUNG');
     if (useXr) rulesApplied.push(`xrechnung-${s}`);
     for (const r of rulesApplied) findings.push(...(await runRules(xml, r, opts)));
+    // The browser build of SaxonJS evaluates the long xs:integer in xr:checkIBAN with double
+    // precision, so BR-DE-19 can fire for correct IBANs. Our exact mod-97 check decides instead.
+    const ibansOk = (invoice.payment?.creditTransfers ?? []).every((ct) => isValidIban(ct.iban));
+    if (ibansOk) {
+      for (let i = findings.length - 1; i >= 0; i--) if (findings[i]!.id === 'BR-DE-19') findings.splice(i, 1);
+    }
     // the extension scenario of KoSIT does not raise UBL-CR-646 (sub invoice lines are allowed there)
     const extension = /extension/i.test(invoice.specification);
     if (useXr) {

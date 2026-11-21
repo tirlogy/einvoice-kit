@@ -118,3 +118,19 @@ describe('messages', () => {
     ]);
   });
 });
+
+describe('engine quirks', () => {
+  it('drops BR-DE-19 when the IBAN is correct (browser SaxonJS precision) but keeps it otherwise', async () => {
+    const fakeSaxon = {
+      transform: async () => ({
+        principalResult: `<svrl:schematron-output xmlns:svrl="http://purl.oclc.org/dsdl/svrl"><svrl:failed-assert id="BR-DE-19" flag="warning"><svrl:text>x</svrl:text></svrl:failed-assert></svrl:schematron-output>`,
+      }),
+    };
+    const inv = finalize(exampleDraft('standard'));
+    const ok = await validateXml(buildCii(inv), { saxon: fakeSaxon, loadRules: async () => ({}) });
+    expect(ok.findings.map((f) => f.id)).not.toContain('BR-DE-19');
+    inv.payment!.creditTransfers[0]!.iban = 'DE00123456780012345678';
+    const bad = await validateXml(buildCii(inv), { saxon: fakeSaxon, loadRules: async () => ({}) });
+    expect(bad.findings.map((f) => f.id)).toEqual(expect.arrayContaining(['BR-DE-19', 'PL-IBAN']));
+  });
+});

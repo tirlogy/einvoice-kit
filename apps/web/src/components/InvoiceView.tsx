@@ -28,7 +28,7 @@ function AddressLines({ a }: { a: Address }) {
 }
 
 function PartyBlock({ title, p }: { title: string; p: Party }) {
-  const { lang } = useI18n();
+  const { lang, t } = useI18n();
   return (
     <section className="party" aria-label={title}>
       <h3>{title}</h3>
@@ -64,13 +64,13 @@ function PartyBlock({ title, p }: { title: string; p: Party }) {
         ))}
         {p.legalRegistrationId && (
           <>
-            <dt>Reg.</dt>
+            <dt>{t('invRegistration')}</dt>
             <dd>{p.legalRegistrationId.id}</dd>
           </>
         )}
         {p.electronicAddress && (
           <>
-            <dt>E-Adr.</dt>
+            <dt>{t('invEAddress')}</dt>
             <dd>{p.electronicAddress.id}</dd>
           </>
         )}

@@ -81,6 +81,8 @@ const de = {
   invDownload: 'Herunterladen',
   invNoLines: 'Diese Rechnung enthält keine Positionen.',
   invExemption: 'Befreiungsgrund',
+  invRegistration: 'Register-Nr.',
+  invEAddress: 'E-Rechnungsadresse',
 
   createTitle: 'Rechnung erstellen',
   createIntro: 'Formular ausfüllen, Vorschau prüfen und als ZUGFeRD-PDF oder XRechnung herunterladen. Absender, Kunden und Artikel können Sie lokal speichern.',
@@ -317,6 +319,8 @@ const en: Strings = {
   invDownload: 'Download',
   invNoLines: 'This invoice has no line items.',
   invExemption: 'Exemption reason',
+  invRegistration: 'Register no.',
+  invEAddress: 'E-invoice address',
 
   createTitle: 'Create an invoice',
   createIntro: 'Fill in the form, check the preview and download a ZUGFeRD PDF or XRechnung. Senders, customers and articles can be stored locally.',
@@ -551,6 +555,8 @@ const tr: Strings = {
   invDownload: 'İndir',
   invNoLines: 'Bu faturada kalem yok.',
   invExemption: 'Muafiyet gerekçesi',
+  invRegistration: 'Sicil no.',
+  invEAddress: 'E-fatura adresi',
 
   createTitle: 'Fatura oluştur',
   createIntro: 'Formu doldurun, önizlemeyi kontrol edin ve ZUGFeRD PDF veya XRechnung olarak indirin. Gönderenleri, müşterileri ve ürünleri yerel olarak kaydedebilirsiniz.',
